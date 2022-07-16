@@ -93,3 +93,15 @@ func TestNewPacketFromString(t *testing.T) {
 		}
 	}
 }
+
+func TestSendPacket(t *testing.T) {
+	packet, err := NewPacketFromString("00:00:00:00:00:00")
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	err = SendPacket(packet, "127.0.0.1")
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+}

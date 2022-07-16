@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"net"
 	"regexp"
 	"strings"
 )
@@ -65,7 +66,16 @@ func NewPacketFromString(addrStr string) (MagicPacket, error) {
 	return packet, nil
 }
 
-func BroadcastPacket(magicPacket MagicPacket) error {
+// Send the MagicPacket to specified ip
+func SendPacket(magicPacket MagicPacket, ip string) error {
+	conn, err := net.Dial("udp", ip+":0")
+	if err != nil {
+		return err
+	}
+
+	defer conn.Close()
+
+	conn.Write(magicPacket[:])
 
 	return nil
 }
