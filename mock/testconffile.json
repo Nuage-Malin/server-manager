@@ -1,0 +1,16 @@
+{
+    "servers": [
+        {
+            "name": "NuageCoquin",
+            "ssh_key": "abcdef",
+            "ip_address": "192.168.0.10",
+            "mac_address": "10:10:10:10:10:10"
+        },
+        {
+            "name": "NuageSucré",
+            "ssh_key": "ghijkl",
+            "ip_address": "192.168.0.11",
+            "mac_address": "10:10:10:10:10:10"
+        }
+    ]
+}
