@@ -2,14 +2,18 @@
     "servers": [
         {
             "name": "NuageCoquin",
+            "ssh_username": "nuagemalin",
             "ssh_key": "abcdef",
             "ip_address": "192.168.0.10",
+            "ssh_port": 22,
             "mac_address": "10:10:10:10:10:10"
         },
         {
-            "name": "NuageSucré",
+            "name": "NuageSucre",
+            "ssh_username": "nuagemalin",
             "ssh_key": "ghijkl",
             "ip_address": "192.168.0.11",
+            "ssh_port": 22,
             "mac_address": "10:10:10:10:10:10"
         }
     ]
