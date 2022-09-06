@@ -6,21 +6,23 @@
 
 GO	=	go
 
-NAME	=	app
+NAME	=	hsm
 
-SRCDIR	=	src
+SRCDIR	=	cli
 
-SRC		=	main.go
+SRC		=	cli.go \
+			wake.go \
+			run.go
 
 SRC			:= $(addprefix $(SRCDIR)/, $(SRC))
 
 GOFLAGS =	--trimpath --mod=vendor
 
-all: $(NAME)
+all: build
 
-$(NAME):
+build:
 	$(GO) mod vendor
-	$(GO) build $(GOFLAGS) -o $(NAME) $(SRC)
+	$(GO) build $(GOFLAGS) -o ./$(NAME) $(SRC)
 
 fclean:
 	rm -f  $(NAME)
