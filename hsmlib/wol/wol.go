@@ -75,6 +75,7 @@ func SendPacket(magicPacket MagicPacket, ip string) error {
 
 	defer conn.Close()
 
+	fmt.Printf("Sending packet %s to %s:0...", hex.EncodeToString(magicPacket[:]), ip)
 	conn.Write(magicPacket[:])
 
 	return nil

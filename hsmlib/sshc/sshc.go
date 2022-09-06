@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"golang.org/x/crypto/ssh"
-	"nuagemalin.com/hsm/hsm/conf"
+	"nuagemalin.com/hsm/hsmlib/conf"
 )
 
 // Makes a ssh.ClientConfig struct from a conf.ServerUnit
