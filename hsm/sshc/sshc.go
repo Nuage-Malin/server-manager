@@ -8,7 +8,7 @@ import (
 	"nuagemalin.com/hsm/hsm/conf"
 )
 
-// Make a ssh.ClientConfig struct from a conf.ServerUnit
+// Makes a ssh.ClientConfig struct from a conf.ServerUnit
 func MakeConfig(server *conf.ServerUnit) (*ssh.ClientConfig, error) {
 	signer, err := ssh.ParsePrivateKey([]byte(server.SshKey))
 	if err != nil {
@@ -23,7 +23,7 @@ func MakeConfig(server *conf.ServerUnit) (*ssh.ClientConfig, error) {
 	return clientConf, nil
 }
 
-// Make a ssh.Client struct from a conf.ServerUnit
+// Makes a ssh.Client struct from a conf.ServerUnit
 func ConnectToServer(server *conf.ServerUnit) (*ssh.Client, error) {
 	conf, err := MakeConfig(server)
 	if err != nil {
@@ -38,7 +38,7 @@ func ConnectToServer(server *conf.ServerUnit) (*ssh.Client, error) {
 	return client, nil
 }
 
-// Make a ssh.Session struct from a conf.ServerUnit
+// Makes a ssh.Session struct from a conf.ServerUnit
 func MakeSession(server *conf.ServerUnit) (*ssh.Session, error) {
 	client, err := ConnectToServer(server)
 	if err != nil {
@@ -51,4 +51,19 @@ func MakeSession(server *conf.ServerUnit) (*ssh.Session, error) {
 	}
 
 	return session, nil
+}
+
+// Runs command on ssh server and returns the output
+func RunCommand(server *conf.ServerUnit, cmd string) ([]byte, error) {
+	session, err := MakeSession(server)
+	if err != nil {
+		return nil, err
+	}
+
+	output, err := session.CombinedOutput(cmd)
+	if err != nil {
+		return nil, err
+	}
+
+	return output, nil
 }
