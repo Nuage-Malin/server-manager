@@ -3,16 +3,18 @@ package conf
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 )
 
 type ServerUnit struct {
-	Name        string `json:"name"`
-	SshUsername string `json:"ssh_username"`
-	SshKey      string `json:"ssh_key"`
-	IpAddress   string `json:"ip_address"`
-	SshPort     int    `json:"ssh_port"`
-	MacAddress  string `json:"mac_address"`
+	Name        string  `json:"name"`
+	SshUsername string  `json:"ssh_username"`
+	SshKey      *string `json:"ssh_key,omitempty"`
+	SshPassword *string `json:"ssh_password,omitempty"`
+	IpAddress   string  `json:"ip_address"`
+	SshPort     int     `json:"ssh_port"`
+	MacAddress  string  `json:"mac_address"`
 }
 
 type ConfFile struct {
@@ -37,6 +39,9 @@ func SanityCheck(conf *ConfFile) {
 			panic("2 servers have the same name.")
 		}
 		checked = append(checked, serv.Name)
+		if serv.SshKey == nil && serv.SshPassword == nil {
+			panic(fmt.Sprintf("Server %s have empty password and key.", serv.Name))
+		}
 	}
 }
 
@@ -63,6 +68,8 @@ func Load(filePath string) (ConfFile, error) {
 	if err != nil {
 		return ConfFile{}, err
 	}
+
+	SanityCheck(&confFile)
 
 	return confFile, nil
 }

@@ -10,16 +10,28 @@ import (
 
 // Makes a ssh.ClientConfig struct from a conf.ServerUnit
 func MakeConfig(server *conf.ServerUnit) (*ssh.ClientConfig, error) {
-	signer, err := ssh.ParsePrivateKey([]byte(server.SshKey))
-	if err != nil {
-		return nil, err
-	}
+	var signer ssh.Signer
+	var err error
+
 	clientConf := &ssh.ClientConfig{
-		User: server.SshUsername,
-		Auth: []ssh.AuthMethod{
-			ssh.PublicKeys(signer),
-		},
+		User:            server.SshUsername,
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
+
+	if server.SshKey != nil {
+		signer, err = ssh.ParsePrivateKey([]byte(*server.SshKey))
+		if err != nil {
+			return nil, err
+		}
+		clientConf.Auth = []ssh.AuthMethod{
+			ssh.PublicKeys(signer),
+		}
+	} else if server.SshPassword != nil {
+		clientConf.Auth = []ssh.AuthMethod{
+			ssh.Password(*server.SshPassword),
+		}
+	}
+
 	return clientConf, nil
 }
 
