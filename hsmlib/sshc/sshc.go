@@ -15,7 +15,7 @@ func MakeConfig(server *conf.ServerUnit) (*ssh.ClientConfig, error) {
 
 	clientConf := &ssh.ClientConfig{
 		User:            server.SshUsername,
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(), // TODO: Modify configuration to handle host key callback security
 	}
 
 	if server.SshKey != nil {
