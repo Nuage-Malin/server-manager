@@ -15,23 +15,17 @@ func main() {
 			{
 				Name:    "wake",
 				Aliases: []string{"w"},
-				Usage:   "wake -t [target]",
+				Usage:   "wake [target]",
 				Action:  wake,
 			},
 			{
 				Name:    "run",
 				Aliases: []string{"s"},
-				Usage:   "run [command] -t [target]",
+				Usage:   "run [target] [command]",
 				Action:  run,
 			},
 		},
 		Flags: []cli.Flag{
-			&cli.StringFlag{
-				Name:     "target",
-				Aliases:  []string{"t"},
-				Usage:    "Target machine",
-				Required: true,
-			},
 			&cli.StringFlag{
 				Name:    "file",
 				Value:   "serverlist.json",

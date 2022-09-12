@@ -14,12 +14,12 @@ func run(cCtx *cli.Context) error {
 		return err
 	}
 
-	servConf, err := config.FindServerUnitByName(cCtx.String("target"))
+	servConf, err := config.FindServerUnitByName(cCtx.Args().Get(0))
 	if err != nil {
 		return err
 	}
 
-	res, err := sshc.RunCommand(servConf, cCtx.Args().Get(0))
+	res, err := sshc.RunCommand(servConf, cCtx.Args().Get(1)) // TODO: concatener les arguments
 	if err != nil {
 		return err
 	}

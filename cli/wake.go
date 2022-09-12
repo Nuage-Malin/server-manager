@@ -12,7 +12,7 @@ func wake(cCtx *cli.Context) error {
 		return err
 	}
 
-	servConf, err := config.FindServerUnitByName(cCtx.String("target"))
+	servConf, err := config.FindServerUnitByName(cCtx.Args().First())
 	if err != nil {
 		return err
 	}
