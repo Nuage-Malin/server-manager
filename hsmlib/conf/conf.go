@@ -31,18 +31,19 @@ func contains(s []string, f string) bool {
 }
 
 // Check the sanity of the ConfFile, panic if an error is present
-func SanityCheck(conf *ConfFile) {
+func SanityCheck(conf *ConfFile) error {
 	checked := make([]string, 0, len(conf.Servers))
 
 	for _, serv := range conf.Servers {
 		if contains(checked, serv.Name) {
-			panic("2 servers have the same name.")
+			return errors.New("2 servers have the same name.")
 		}
 		checked = append(checked, serv.Name)
 		if serv.SshKey == nil && serv.SshPassword == nil {
-			panic(fmt.Sprintf("Server %s have empty password and key.", serv.Name))
+			return errors.New(fmt.Sprintf("Server %s have empty password and key.", serv.Name))
 		}
 	}
+	return nil
 }
 
 // Find Server by name.
@@ -57,19 +58,19 @@ func (c *ConfFile) FindServerUnitByName(name string) (*ServerUnit, error) {
 }
 
 // Load a configuration file located at the given filePath
-func Load(filePath string) (ConfFile, error) {
+func Load(filePath string) (*ConfFile, error) {
 	dat, err := os.ReadFile(filePath)
 	if err != nil {
-		return ConfFile{}, err
+		return nil, err
 	}
 
-	var confFile ConfFile
-	err = json.Unmarshal(dat, &confFile)
+	confFile := &ConfFile{}
+	err = json.Unmarshal(dat, confFile)
 	if err != nil {
-		return ConfFile{}, err
+		return nil, err
 	}
 
-	SanityCheck(&confFile)
+	SanityCheck(confFile)
 
 	return confFile, nil
 }
