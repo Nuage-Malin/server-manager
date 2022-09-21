@@ -1,4 +1,7 @@
 hsm
+_obj/
+id_rsa
+serverlist.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
