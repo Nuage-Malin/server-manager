@@ -2,6 +2,7 @@ package sshc
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 
 	"golang.org/x/crypto/ssh"
@@ -11,7 +12,6 @@ import (
 // Makes a ssh.ClientConfig struct from a conf.ServerUnit
 func MakeConfig(server *conf.ServerUnit) (*ssh.ClientConfig, error) {
 	var signer ssh.Signer
-	var err error
 
 	clientConf := &ssh.ClientConfig{
 		User:            server.SshUsername,
@@ -19,7 +19,12 @@ func MakeConfig(server *conf.ServerUnit) (*ssh.ClientConfig, error) {
 	}
 
 	if server.SshKey != nil {
-		signer, err = ssh.ParsePrivateKey([]byte(*server.SshKey))
+		file, err := ioutil.ReadFile(*server.SshKey)
+		if err != nil {
+			return nil, err
+		}
+
+		signer, err = ssh.ParsePrivateKey(file)
 		if err != nil {
 			return nil, err
 		}
