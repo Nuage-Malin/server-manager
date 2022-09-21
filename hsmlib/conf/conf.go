@@ -70,7 +70,10 @@ func Load(filePath string) (*ConfFile, error) {
 		return nil, err
 	}
 
-	SanityCheck(confFile)
+	err = SanityCheck(confFile)
+	if err != nil {
+		return nil, err
+	}
 
 	return confFile, nil
 }
