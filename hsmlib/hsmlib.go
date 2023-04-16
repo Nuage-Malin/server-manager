@@ -1,4 +1,4 @@
-package main
+package hsm
 
 import (
 	"nuagemalin.com/hsm/hsmlib/conf"
