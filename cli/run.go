@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
+	"github.com/Nuage-Malin/server-manager/hsmlib/conf"
+	"github.com/Nuage-Malin/server-manager/hsmlib/sshc"
 	"github.com/urfave/cli/v2"
-	"nuagemalin.com/hsm/hsmlib/conf"
-	"nuagemalin.com/hsm/hsmlib/sshc"
 )
 
 func run(cCtx *cli.Context) error {

@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/Nuage-Malin/server-manager/hsmlib/conf"
+	"github.com/Nuage-Malin/server-manager/hsmlib/wol"
 	"github.com/urfave/cli/v2"
-	"nuagemalin.com/hsm/hsmlib/conf"
-	"nuagemalin.com/hsm/hsmlib/wol"
 )
 
 func wake(cCtx *cli.Context) error {

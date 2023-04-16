@@ -1,9 +1,9 @@
 package hsm
 
 import (
-	"nuagemalin.com/hsm/hsmlib/conf"
-	"nuagemalin.com/hsm/hsmlib/sshc"
-	"nuagemalin.com/hsm/hsmlib/wol"
+	"github.com/Nuage-Malin/server-manager/hsmlib/conf"
+	"github.com/Nuage-Malin/server-manager/hsmlib/sshc"
+	"github.com/Nuage-Malin/server-manager/hsmlib/wol"
 )
 
 //export LoadConf

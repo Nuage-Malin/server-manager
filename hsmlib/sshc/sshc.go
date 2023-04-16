@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"strings"
 
+	"github.com/Nuage-Malin/server-manager/hsmlib/conf"
 	"golang.org/x/crypto/ssh"
-	"nuagemalin.com/hsm/hsmlib/conf"
 )
 
 // Makes a ssh.ClientConfig struct from a conf.ServerUnit
