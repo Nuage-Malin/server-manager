@@ -1,4 +1,4 @@
-module nuagemalin.com/hsm
+module github.com/Nuage-Malin/server-manager
 
 go 1.17
 
