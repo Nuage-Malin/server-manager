@@ -3,16 +3,15 @@ package main
 import (
 	"github.com/Nuage-Malin/server-manager/hsmlib/conf"
 	"github.com/Nuage-Malin/server-manager/hsmlib/wol"
-	"github.com/urfave/cli/v2"
 )
 
-func wake(cCtx *cli.Context) error {
-	config, err := conf.Load(cCtx.String("file"))
+func wake() error {
+	config, err := conf.Load("mock/testconffile.json")
 	if err != nil {
 		return err
 	}
 
-	servConf, err := config.FindServerUnitByName(cCtx.Args().First())
+	servConf, err := config.FindServerUnitByName("NuageCoquin")
 	if err != nil {
 		return err
 	}

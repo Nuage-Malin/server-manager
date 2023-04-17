@@ -5,21 +5,20 @@ import (
 
 	"github.com/Nuage-Malin/server-manager/hsmlib/conf"
 	"github.com/Nuage-Malin/server-manager/hsmlib/sshc"
-	"github.com/urfave/cli/v2"
 )
 
-func run(cCtx *cli.Context) error {
-	config, err := conf.Load(cCtx.String("file"))
+func run() error {
+	config, err := conf.Load("mock/testconffile.json")
 	if err != nil {
 		return err
 	}
 
-	servConf, err := config.FindServerUnitByName(cCtx.Args().Get(0))
+	servConf, err := config.FindServerUnitByName("NuageCoquin")
 	if err != nil {
 		return err
 	}
 
-	res, err := sshc.RunCommand(servConf, cCtx.Args().Get(1)) // TODO: concatener les arguments
+	res, err := sshc.RunCommand("systemctl suspend") // TODO: concatener les arguments
 	if err != nil {
 		return err
 	}
